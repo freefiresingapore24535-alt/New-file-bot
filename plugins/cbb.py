@@ -1,77 +1,99 @@
-#
-# Copyright (C) 2025 by Codeflix-Bots@Github, < https://github.com/Codeflix-Bots >.
-#
-# This file is part of < https://github.com/Codeflix-Bots/FileStore > project,
-# and is released under the MIT License.
-# Please see < https://github.com/Codeflix-Bots/FileStore/blob/master/LICENSE >
-#
-# All rights reserved.
+# Copyright (C) 2025
+# Codeflix-Bots@Github - MIT License
 
-from pyrogram import Client 
+from pyrogram.types import (
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+    CallbackQuery,
+)
 from bot import Bot
 from config import *
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from database.database import *
+from database.database import db
+
 
 @Bot.on_callback_query()
 async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
 
+    # ========================= HOME ========================= #
     if data == "home":
 
-    buttons = [
-        [InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'),
-         InlineKeyboardButton('• ᴄʟᴏsᴇ •', callback_data='close')],
-        [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
-    ]
+        buttons = [
+            [
+                InlineKeyboardButton("• ᴀʙᴏᴜᴛ •", callback_data="about"),
+                InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data="close"),
+            ],
+            [
+                InlineKeyboardButton(
+                    "• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie"
+                )
+            ],
+        ]
 
-    # Add admin-only button
-    if query.from_user.id in client.admins:
-        buttons.insert(0, [InlineKeyboardButton("⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help")])
+        # Admin button from config.py
+        if query.from_user.id in ADMINS:
+            buttons.insert(
+                0,
+                [
+                    InlineKeyboardButton(
+                        "⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help"
+                    )
+                ],
+            )
 
-    await query.message.edit_text(
-        text=START_MSG.format(first=query.from_user.first_name),
-        disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup(buttons)
-    )
+        await query.message.edit_text(
+            text=START_MSG.format(first=query.from_user.first_name),
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(buttons),
+        )
+
+    # ========================= ABOUT ========================= #
     elif data == "about":
         await query.message.edit_text(
             text=ABOUT_TXT.format(first=query.from_user.first_name),
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton('• ʜᴏᴍᴇ •', callback_data='home'),
-                 InlineKeyboardButton('• ᴄʟᴏsᴇ •', callback_data='close')],
-                [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
-            ])
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("• ʜᴏᴍᴇ •", callback_data="home"),
+                        InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data="close"),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "• ᴅᴇᴠᴇʟᴏᴘᴇʀ •",
+                            url="https://t.me/Minato_Sencie",
+                        )
+                    ],
+                ]
+            ),
         )
 
+    # ========================= HELP ========================= #
     elif data == "help":
         await query.message.edit_text(
             text=CMD_TXT.format(first=query.from_user.first_name),
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton('• ʜᴏᴍᴇ •', callback_data='home'),
-                 InlineKeyboardButton('• ᴄʟᴏsᴇ •', callback_data='close')],
-                [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
-            ])
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("• ʜᴏᴍᴇ •", callback_data="home"),
+                        InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data="close"),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            "• ᴅᴇᴠᴇʟᴏᴘᴇʀ •",
+                            url="https://t.me/Minato_Sencie",
+                        )
+                    ],
+                ]
+            ),
         )
 
-
-# Don't Remove Credit @CodeFlix_Bots, @rohit_1888
-# Ask Doubt on telegram @CodeflixSupport
-#
-# Copyright (C) 2025 by Codeflix-Bots@Github, < https://github.com/Codeflix-Bots >.
-#
-# This file is part of < https://github.com/Codeflix-Bots/FileStore > project,
-# and is released under the MIT License.
-# Please see < https://github.com/Codeflix-Bots/FileStore/blob/master/LICENSE >
-#
-# All rights reserved.
-#
-
-
+    # ========================= PREMIUM ========================= #
     elif data == "premium":
+
         await query.message.delete()
+
         await client.send_photo(
             chat_id=query.message.chat.id,
             photo=QR_PIC,
@@ -94,16 +116,16 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 [
                     [
                         InlineKeyboardButton(
-                            "⏤͟͞ 𝙈𝙞𝙣𝙖𝙩𝙤ˢᵉⁿᶜᶦᵉ", url=(SCREENSHOT_URL)
+                            "⏤͟͞ 𝙈𝙞𝙣𝙖𝙩𝙤ˢᵉⁿᶜᶦᵉ",
+                            url=SCREENSHOT_URL,
                         )
                     ],
                     [InlineKeyboardButton("🔒 Close", callback_data="close")],
                 ]
-            )
+            ),
         )
 
-
-
+    # ========================= CLOSE ========================= #
     elif data == "close":
         await query.message.delete()
         try:
@@ -111,71 +133,85 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         except:
             pass
 
+    # ========================= RFS — CHANNEL PAGE ========================= #
     elif data.startswith("rfs_ch_"):
         cid = int(data.split("_")[2])
+
         try:
             chat = await client.get_chat(cid)
             mode = await db.get_channel_mode(cid)
-            status = "🟢 ᴏɴ" if mode == "on" else "🔴 ᴏғғ"
-            new_mode = "ᴏғғ" if mode == "on" else "on"
-            buttons = [
-                [InlineKeyboardButton(f"ʀᴇǫ ᴍᴏᴅᴇ {'OFF' if mode == 'on' else 'ON'}", callback_data=f"rfs_toggle_{cid}_{new_mode}")],
-                [InlineKeyboardButton("‹ ʙᴀᴄᴋ", callback_data="fsub_back")]
-            ]
-            await query.message.edit_text(
-                f"Channel: {chat.title}\nCurrent Force-Sub Mode: {status}",
-                reply_markup=InlineKeyboardMarkup(buttons)
-            )
-        except Exception:
-            await query.answer("Failed to fetch channel info", show_alert=True)
+            new_mode = "off" if mode == "on" else "on"
 
+            buttons = [
+                [
+                    InlineKeyboardButton(
+                        f"ʀᴇǫ ᴍᴏᴅᴇ {'OFF' if mode == 'on' else 'ON'}",
+                        callback_data=f"rfs_toggle_{cid}_{new_mode}",
+                    )
+                ],
+                [InlineKeyboardButton("‹ ʙᴀᴄᴋ", callback_data="fsub_back")],
+            ]
+
+            await query.message.edit_text(
+                f"Channel: {chat.title}\nForce-Sub: {'🟢 ON' if mode == 'on' else '🔴 OFF'}",
+                reply_markup=InlineKeyboardMarkup(buttons),
+            )
+
+        except Exception:
+            await query.answer(
+                "Failed to fetch channel info", show_alert=True
+            )
+
+    # ========================= RFS — TOGGLE MODE ========================= #
     elif data.startswith("rfs_toggle_"):
-        cid, action = data.split("_")[2:]
-        cid = int(cid)
+        cid = int(data.split("_")[2])
+        action = data.split("_")[3]
+
         mode = "on" if action == "on" else "off"
 
         await db.set_channel_mode(cid, mode)
-        await query.answer(f"Force-Sub set to {'ON' if mode == 'on' else 'OFF'}")
+        await query.answer(f"Force-Sub set to {mode.upper()}")
 
-        # Refresh the same channel's mode view
         chat = await client.get_chat(cid)
-        status = "🟢 ON" if mode == "on" else "🔴 OFF"
         new_mode = "off" if mode == "on" else "on"
+
         buttons = [
-            [InlineKeyboardButton(f"ʀᴇǫ ᴍᴏᴅᴇ {'OFF' if mode == 'on' else 'ON'}", callback_data=f"rfs_toggle_{cid}_{new_mode}")],
-            [InlineKeyboardButton("‹ ʙᴀᴄᴋ", callback_data="fsub_back")]
+            [
+                InlineKeyboardButton(
+                    f"ʀᴇǫ ᴍᴏᴅᴇ {'OFF' if mode == 'on' else 'ON'}",
+                    callback_data=f"rfs_toggle_{cid}_{new_mode}",
+                )
+            ],
+            [InlineKeyboardButton("‹ ʙᴀᴄᴋ", callback_data="fsub_back")],
         ]
+
         await query.message.edit_text(
-            f"Channel: {chat.title}\nCurrent Force-Sub Mode: {status}",
-            reply_markup=InlineKeyboardMarkup(buttons)
+            f"Channel: {chat.title}\nForce-Sub: {'🟢 ON' if mode == 'on' else '🔴 OFF'}",
+            reply_markup=InlineKeyboardMarkup(buttons),
         )
 
+    # ========================= RFS — BACK ========================= #
     elif data == "fsub_back":
         channels = await db.show_channels()
         buttons = []
+
         for cid in channels:
             try:
                 chat = await client.get_chat(cid)
                 mode = await db.get_channel_mode(cid)
                 status = "🟢" if mode == "on" else "🔴"
-                buttons.append([InlineKeyboardButton(f"{status} {chat.title}", callback_data=f"rfs_ch_{cid}")])
+                buttons.append(
+                    [
+                        InlineKeyboardButton(
+                            f"{status} {chat.title}",
+                            callback_data=f"rfs_ch_{cid}",
+                        )
+                    ]
+                )
             except:
                 continue
 
         await query.message.edit_text(
-            "sᴇʟᴇᴄᴛ ᴀ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴛᴏɢɢʟᴇ ɪᴛs ғᴏʀᴄᴇ-sᴜʙ ᴍᴏᴅᴇ:",
-            reply_markup=InlineKeyboardMarkup(buttons)
+            "Select channel to toggle Force-Sub:",
+            reply_markup=InlineKeyboardMarkup(buttons),
         )
-
-
-# Don't Remove Credit @CodeFlix_Bots, @rohit_1888
-# Ask Doubt on telegram @CodeflixSupport
-#
-# Copyright (C) 2025 by Codeflix-Bots@Github, < https://github.com/Codeflix-Bots >.
-#
-# This file is part of < https://github.com/Codeflix-Bots/FileStore > project,
-# and is released under the MIT License.
-# Please see < https://github.com/Codeflix-Bots/FileStore/blob/master/LICENSE >
-#
-# All rights reserved.
-#
