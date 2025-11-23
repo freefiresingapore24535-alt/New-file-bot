@@ -188,8 +188,12 @@ async def start_command(client: Client, message: Message):
             except Exception as e:
                 print(f"Error updating notification with 'Get File Again' button: {e}")
     else:
-        buttons = [[InlineKeyboardButton("• ᴀʙᴏᴜᴛ •", callback_data="about"), InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data='close')],
-        [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie"]]
+        buttons = [
+            [InlineKeyboardButton("• ᴀʙᴏᴜᴛ •", callback_data="about"), 
+             InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data='close')
+            ], [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")
+               ]
+        ]
         if user_id in client.admins:
             buttons.insert(0, [InlineKeyboardButton("⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help")])
 
