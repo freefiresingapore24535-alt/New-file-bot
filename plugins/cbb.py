@@ -17,29 +17,20 @@ from database.database import *
 async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
 
-    @Client.on_callback_query(filters.regex('^home$'))
-async def home(client: Client, query: CallbackQuery):
-    buttons = [
-            [InlineKeyboardButton("• ᴀʙᴏᴜᴛ •", callback_data="about"), 
-             InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data='close')
-            ], [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")
-               ]
-        ]
-    if query.from_user.id in client.admins:
+    if data == "home":
+        await query.message.edit_text(
+            text=START_MSG.format(first=query.from_user.first_name),
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'),
+                 InlineKeyboardButton('• ᴄʟᴏsᴇ •', callback_data='close')],
+                [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
+            ])
+        )
+        if query.from_user.id in client.admins:
         buttons.insert(0, [InlineKeyboardButton("⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help")])
-    await query.message.edit_text(
-        text=client.messages.get('START', 'No Start Message').format(
-            first=query.from_user.first_name,
-            last=query.from_user.last_name,
-            username=None if not query.from_user.username else '@' + query.from_user.username,
-            mention=query.from_user.mention,
-            id=query.from_user.id
-                
-        ),
-        reply_markup=InlineKeyboardMarkup(buttons)
-    )
     
-    if data == "about":
+    elif data == "about":
         await query.message.edit_text(
             text=ABOUT_TXT.format(first=query.from_user.first_name),
             disable_web_page_preview=True,
@@ -50,7 +41,7 @@ async def home(client: Client, query: CallbackQuery):
             ])
         )
 
-    if data == "help":
+    elif data == "help":
         await query.message.edit_text(
             text=CMD_TXT.format(first=query.from_user.first_name),
             disable_web_page_preview=True,
