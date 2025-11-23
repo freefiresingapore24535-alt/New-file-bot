@@ -98,17 +98,17 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             chat_id=query.message.chat.id,
             photo=QR_PIC,
             caption=(
-                f"<b>ʜᴇʏ!! {query.from_user.first_name}\n\n<\b>"
+                f"<b>ʜᴇʏ!! {query.from_user.first_name}\n\n</b>"
                 f"𝙃𝙚𝙮 𝙜𝙪𝙮𝙨...\n"
                 f"𝙔𝙤𝙪 𝙬𝙖𝙣𝙩 𝙨𝙢𝙤𝙤𝙩𝙝 𝙚𝙭𝙥𝙚𝙧𝙞𝙚𝙣𝙘𝙚...\n"
                 f"𝙉𝙤 𝙢𝙤𝙧𝙚 𝙫𝙚𝙧𝙞𝙛𝙞𝙘𝙖𝙩𝙞𝙤𝙣...\n"
                 f"𝘽𝙪𝙮 𝙤𝙪𝙧 𝙥𝙧𝙚𝙢𝙞𝙪𝙢 𝙨𝙪𝙧𝙫𝙞𝙘𝙚...\n\n"
-                f"<blockquote>🎖️ ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴꜱ<\blockquote>\n"
-                f"<b>◉ 7 ᴅᴀʏꜱ :- {PRICE1}\n<\b>"
-                f"<b>◉ 1 ᴍᴏɴᴛʜ  :- {PRICE2}\n<\b>"
-                f"<b>◉ 3 ᴍᴏɴᴛʜ  :- {PRICE3}\n<\b>"
-                f"<b>◉ 6 ᴍᴏɴᴛʜ  :- {PRICE4}\n<\b>"
-                f"<b>◉ 1 ʏᴇᴀʀ :- {PRICE5}\n<\b>"
+                f"<blockquote>🎖️ ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴꜱ</blockquote>\n"
+                f"<b>◉ 7 ᴅᴀʏꜱ :- {PRICE1}\n</b>"
+                f"<b>◉ 1 ᴍᴏɴᴛʜ  :- {PRICE2}\n</b>"
+                f"<b>◉ 3 ᴍᴏɴᴛʜ  :- {PRICE3}\n</b>"
+                f"<b>◉ 6 ᴍᴏɴᴛʜ  :- {PRICE4}\n</b>"
+                f"<b>◉ 1 ʏᴇᴀʀ :- {PRICE5}\n</b>"
                 f"•─────•─────────•─────•\n"
                 f"𝘿𝙢 𝙢𝙚:- <a href='https://t.me/Minato_Sencie'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>"
             ),
