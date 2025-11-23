@@ -18,18 +18,22 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
 
     if data == "home":
-        await query.message.edit_text(
-            text=START_MSG.format(first=query.from_user.first_name),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'),
-                 InlineKeyboardButton('• ᴄʟᴏsᴇ •', callback_data='close')],
-                [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
-            ])
-        )
-        elif query.from_user.id in client.admins:
+
+    buttons = [
+        [InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'),
+         InlineKeyboardButton('• ᴄʟᴏsᴇ •', callback_data='close')],
+        [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
+    ]
+
+    # Add admin-only button
+    if query.from_user.id in client.admins:
         buttons.insert(0, [InlineKeyboardButton("⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help")])
-    
+
+    await query.message.edit_text(
+        text=START_MSG.format(first=query.from_user.first_name),
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup(buttons)
+    )
     elif data == "about":
         await query.message.edit_text(
             text=ABOUT_TXT.format(first=query.from_user.first_name),
