@@ -198,6 +198,15 @@ async def start_command(client: Client, message: Message):
                 [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
             ]
         )
+        if query.from_user.id in client.admins:
+            buttons.insert(
+                0,
+                [
+                    InlineKeyboardButton(
+                        "⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help"
+                    )
+                ],
+            )
         await message.reply_photo(
             photo=START_PIC,
             caption=START_MSG.format(
