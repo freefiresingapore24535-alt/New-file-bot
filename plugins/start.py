@@ -222,7 +222,7 @@ await message.reply_photo(
     message_effect_id=5046509860389126442)        # 🎉
  
 
-        return
+    
 
 
 
