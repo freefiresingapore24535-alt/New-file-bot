@@ -56,12 +56,10 @@ def get_indian_time():
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            session_name="/data/bot",
+            name="/data/bot",   # persistent session stored in Render's /data folder
             api_hash=API_HASH,
             api_id=APP_ID,
-            plugins={
-                "root": "plugins"
-            },
+            plugins={"root": "plugins"},
             workers=TG_BOT_WORKERS,
             bot_token=TG_BOT_TOKEN
         )
