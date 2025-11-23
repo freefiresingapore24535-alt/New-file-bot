@@ -189,24 +189,38 @@ async def start_command(client: Client, message: Message):
                 print(f"Error updating notification with 'Get File Again' button: {e}")
     else:
         buttons = [
-            [InlineKeyboardButton("• ᴀʙᴏᴜᴛ •", callback_data="about"), 
-             InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data='close')
-            ], [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")
-               ]
-        ]
-        if user_id in client.admins:
-            buttons.insert(0, [InlineKeyboardButton("⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help")])
+    [
+        InlineKeyboardButton("• ᴀʙᴏᴜᴛ •", callback_data="about"),
+        InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data='close')
+    ],
+    [
+        InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")
+    ]
+]
 
-        photo = client.messages.get("START_PHOTO", "")
-        start_caption = client.messages.get('START', 'Welcome, {mention}').format(
-            first=message.from_user.first_name,
-            last=message.from_user.last_name,
-            username=None if not message.from_user.username else '@' + message.from_user.username,
-            mention=message.from_user.mention,
-            id=message.from_user.id
-            ),
-            reply_markup=reply_markup,
-            message_effect_id=5046509860389126442)  # 🎉
+if user_id in client.admins:
+    buttons.insert(0, [
+        InlineKeyboardButton("⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help")
+    ])
+
+photo = client.messages.get("START_PHOTO", "")
+
+start_caption = client.messages.get('START', 'Welcome, {mention}').format(
+    first=message.from_user.first_name,
+    last=message.from_user.last_name,
+    username=('@' + message.from_user.username) if message.from_user.username else None,
+    mention=message.from_user.mention,
+    id=message.from_user.id
+)
+
+reply_markup = InlineKeyboardMarkup(buttons)
+
+await message.reply_photo(
+    photo=photo,
+    caption=start_caption,
+    reply_markup=reply_markup,
+    message_effect_id=5046509860389126442)        # 🎉
+ 
 
         return
 
