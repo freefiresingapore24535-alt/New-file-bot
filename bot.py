@@ -56,7 +56,7 @@ def get_indian_time():
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            name="Bot",
+            session_name="/data/bot",
             api_hash=API_HASH,
             api_id=APP_ID,
             plugins={
