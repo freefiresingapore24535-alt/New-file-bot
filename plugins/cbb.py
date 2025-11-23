@@ -27,7 +27,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
             ])
         )
-        else query.from_user.id in client.admins:
+        elif query.from_user.id in client.admins:
         buttons.insert(0, [InlineKeyboardButton("⛩️ ᴄᴏᴍᴍᴀɴᴅꜱ ⛩️", callback_data="help")])
     
     elif data == "about":
