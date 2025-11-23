@@ -35,14 +35,21 @@ def get_indian_time():
 
 class Bot(Client):
     def __init__(self):
+
+        # Make sure /data exists (Render sometimes does NOT create it)
+        import os
+        if not os.path.exists("/data"):
+            os.makedirs("/data")
+
         super().__init__(
-            name="/data/newbot",         # IMPORTANT FIX
+            name="/data/newbot",      # Session stored safely in /data
             api_id=APP_ID,
             api_hash=API_HASH,
             bot_token=TG_BOT_TOKEN,
             plugins={"root": "plugins"},
             workers=TG_BOT_WORKERS
         )
+
         self.LOGGER = LOGGER
 
     async def start(self):
