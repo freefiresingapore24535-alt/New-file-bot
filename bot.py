@@ -36,14 +36,13 @@ def get_indian_time():
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            name="newbot",                      # Safe for Render
+            name="/data/newbot",         # IMPORTANT FIX
             api_id=APP_ID,
             api_hash=API_HASH,
             bot_token=TG_BOT_TOKEN,
             plugins={"root": "plugins"},
             workers=TG_BOT_WORKERS
         )
-
         self.LOGGER = LOGGER
 
     async def start(self):
