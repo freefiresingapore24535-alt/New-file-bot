@@ -16,7 +16,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
 
     # ========================= HOME ========================= #
-    if data == "home":
+    if data == "start":
 
         buttons = [
             [
@@ -55,7 +55,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("• ʜᴏᴍᴇ •", callback_data="home"),
+                        InlineKeyboardButton("• ʜᴏᴍᴇ •", callback_data="start"),
                         InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data="close"),
                     ],
                     [
@@ -76,7 +76,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("• ʜᴏᴍᴇ •", callback_data="home"),
+                        InlineKeyboardButton("• ʜᴏᴍᴇ •", callback_data="start"),
                         InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data="close"),
                     ],
                     [
