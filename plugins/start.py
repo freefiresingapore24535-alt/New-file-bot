@@ -192,7 +192,7 @@ async def start_command(client: Client, message: Message):
             [        
     [
                     InlineKeyboardButton("• ᴀʙᴏᴜᴛ •", callback_data = "about"),
-                    InlineKeyboardButton('• ʜᴇʟᴘ •', callback_data = "help")
+                    InlineKeyboardButton('• ᴄʟᴏsᴇ •', callback_data = "close")
     ],
             
                 [InlineKeyboardButton("• ᴅᴇᴠᴇʟᴏᴘᴇʀ •", url="https://t.me/Minato_Sencie")]
