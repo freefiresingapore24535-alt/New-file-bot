@@ -1,3 +1,16 @@
+
+# Don't Remove Credit @CodeFlix_Bots, @rohit_1888
+# Ask Doubt on telegram @CodeflixSupport
+#
+# Copyright (C) 2025 by Codeflix-Bots@Github, < https://github.com/Codeflix-Bots >.
+#
+# This file is part of < https://github.com/Codeflix-Bots/FileStore > project,
+# and is released under the MIT License.
+# Please see < https://github.com/Codeflix-Bots/FileStore/blob/master/LICENSE >
+#
+# All rights reserved.
+#
+
 from aiohttp import web
 from plugins import web_server
 import asyncio
@@ -7,102 +20,108 @@ from pyrogram.enums import ParseMode
 import sys
 import pytz
 from datetime import datetime
+#rohit_1888 on Tg
 from config import *
 from database.db_premium import *
 from database.database import *
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import logging
 
-# Disable low-level APScheduler logs
+# Suppress APScheduler logs below WARNING level
 logging.getLogger("apscheduler").setLevel(logging.WARNING)
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
 scheduler.add_job(remove_expired_users, "interval", seconds=10)
 
+# Reset verify count for all users daily at 00:00 IST
 async def daily_reset_task():
     try:
         await db.reset_all_verify_counts()
-    except:
-        pass
+    except Exception:
+        pass  
 
 scheduler.add_job(daily_reset_task, "cron", hour=0, minute=0)
+#scheduler.start()
 
+
+name ="""
+ BY Minato_Sencie
+"""
 
 def get_indian_time():
+    """Returns the current time in IST."""
     ist = pytz.timezone("Asia/Kolkata")
     return datetime.now(ist)
 
-
 class Bot(Client):
     def __init__(self):
-
-        # Make sure /data exists (Render sometimes does NOT create it)
-        import os
-        if not os.path.exists("/data"):
-            os.makedirs("/data")
-
         super().__init__(
-            name="/data/newbot",      # Session stored safely in /data
-            api_id=APP_ID,
+            name="Bot",
             api_hash=API_HASH,
-            bot_token=TG_BOT_TOKEN,
-            plugins={"root": "plugins"},
-            workers=TG_BOT_WORKERS
+            api_id=APP_ID,
+            plugins={
+                "root": "plugins"
+            },
+            workers=TG_BOT_WORKERS,
+            bot_token=TG_BOT_TOKEN
         )
-
         self.LOGGER = LOGGER
 
     async def start(self):
         await super().start()
         scheduler.start()
-
         usr_bot_me = await self.get_me()
-        self.username = usr_bot_me.username
         self.uptime = get_indian_time()
 
         try:
             db_channel = await self.get_chat(CHANNEL_ID)
             self.db_channel = db_channel
-
-            test = await self.send_message(db_channel.id, "Test Message")
+            test = await self.send_message(chat_id = db_channel.id, text = "Test Message")
             await test.delete()
-
         except Exception as e:
-            LOGGER.warning(e)
-            LOGGER.warning(
-                f"Make sure bot is admin in DB Channel. Current CHANNEL_ID = {CHANNEL_ID}")
-            LOGGER.info("Bot stopped. Join @Sk_Anime_1 for support.")
+            self.LOGGER(__name__).warning(e)
+            self.LOGGER(__name__).warning(f"Make Sure bot is Admin in DB Channel, and Double check the CHANNEL_ID Value, Current Value {CHANNEL_ID}")
+            self.LOGGER(__name__).info("\nBot Stopped. Join https://t.me/weebs_support for support")
             sys.exit()
 
         self.set_parse_mode(ParseMode.HTML)
+        self.LOGGER(__name__).info(f"Bot Running..!\n\nCreated by \nhttps://t.me/weebs_support")
+        self.LOGGER(__name__).info(f""" Minato_Sencie  """)
 
-        LOGGER.info("Bot Running..! Created by @Minato_Sencie")
+        self.set_parse_mode(ParseMode.HTML)
+        self.username = usr_bot_me.username
+        self.LOGGER(__name__).info(f"Bot Running..! Made by @Minato_Sencie")   
 
         # Start Web Server
         app = web.AppRunner(await web_server())
         await app.setup()
         await web.TCPSite(app, "0.0.0.0", PORT).start()
 
-        try:
-            await self.send_message(
-                OWNER_ID,
-                "<b><blockquote>Bot Restarted by @Minato_Sencie</blockquote></b>"
-            )
-        except:
-            pass
+
+        try: await self.send_message(OWNER_ID, text = f"<b><blockquote> Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ by @Minato_Sencie</blockquote></b>")
+        except: pass
 
     async def stop(self, *args):
         await super().stop()
-        LOGGER.info("Bot stopped.")
+        self.LOGGER(__name__).info("Bot stopped.")
 
     def run(self):
+        """Run the bot."""
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.start())
-        LOGGER.info("Bot is now running...")
-
+        self.LOGGER(__name__).info("Bot is now running. Thanks to @Minato_Sencie")
         try:
             loop.run_forever()
         except KeyboardInterrupt:
-            LOGGER.info("Shutting down...")
+            self.LOGGER(__name__).info("Shutting down...")
         finally:
             loop.run_until_complete(self.stop())
+
+#
+# Copyright (C) 2025 by Codeflix-Bots@Github, < https://github.com/Codeflix-Bots >.
+#
+# This file is part of < https://github.com/Codeflix-Bots/FileStore > project,
+# and is released under the MIT License.
+# Please see < https://github.com/Codeflix-Bots/FileStore/blob/master/LICENSE >
+#
+# All rights reserved.
