@@ -214,11 +214,6 @@ start_caption = client.messages.get('START', 'Welcome, {mention}').format(
 )
 
 reply_markup = InlineKeyboardMarkup(buttons)
-
-await message.reply_photo(
-    photo=photo,
-    caption=start_caption,
-    reply_markup=reply_markup,
     message_effect_id=5046509860389126442)        # 🎉
  
 
