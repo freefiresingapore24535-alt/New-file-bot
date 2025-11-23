@@ -110,7 +110,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 f"<b>◉ 6 ᴍᴏɴᴛʜ  :- {PRICE4}\n<\b>"
                 f"<b>◉ 1 ʏᴇᴀʀ :- {PRICE5}\n<\b>"
                 f"•─────•─────────•─────•\n"
-                f" 𝘿𝙢 𝙢𝙚:- <a href='https://t.me/Minato_Sencie'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>"
+                f"𝘿𝙢 𝙢𝙚:- <a href='https://t.me/Minato_Sencie'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>"
             ),
             reply_markup=InlineKeyboardMarkup(
                 [
